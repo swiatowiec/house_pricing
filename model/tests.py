@@ -29,3 +29,15 @@ class ModelTests(unittest.TestCase):
         train_predict._model_service.generate_plots(dataset, PATH)
         num_of_creates_plots = len(os.listdir(PATH))
         self.assertEqual(num_of_creates_plots, 2)
+
+    def test_train_predict(self):
+        train_predict = self.setUp()
+        dataset, features, target = train_predict._dataset_repository.read_data()
+        rmse, r2 = train_predict._model_service.train_predict(features=features, target=target, test_size=0.2)
+        rmse_rounded = round(rmse, 4)
+        r2_rounded = round(r2, 4)
+        self.assertEqual(rmse_rounded, 5.2723)
+        self.assertEqual(r2_rounded, 0.6210)
+
+    if __name__ == '__main__':
+        unittest.main()
