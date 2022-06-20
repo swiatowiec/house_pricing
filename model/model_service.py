@@ -8,15 +8,15 @@ import pandas as pd
 import numpy as np
 
 class ModelService:
-    def generate_plots(self, dataset):
+    def generate_plots(self, dataset, path):
         #TODO add path as params
         corr_matrix = dataset.corr().round(2)
         sns.heatmap(data=corr_matrix, annot=True)
-        plt.savefig('correlation_matrix.png')
+        plt.savefig(os.path.join('correlation_matrix.png'))
 
         sns.set(rc={'figure.figsize':(10,10)})
         sns.distplot(dataset['MEDV'], bins=20)
-        plt.savefig('prices_(MEDV).png')
+        plt.savefig(os.path.join(path, 'prices_(MEDV).png'))
 
     def train_predict(self, features, target):
         selected_features = self._select_features(features=features)

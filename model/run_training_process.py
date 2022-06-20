@@ -1,12 +1,16 @@
 from dataset_repository import DatasetRepository
 from model_service import ModelService
 from facade import PredictHousePrices
+import argparse
 
 if __name__ == '__main__':
-    #TODO add parser and args
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--artifacts_path', type=str, default='model/artifacts')
+    args = parser.parse_args()
+
     dataset_repository = DatasetRepository()
     model_service = ModelService()
     train_predict = PredictHousePrices(dataset_repository=dataset_repository,
     model_service=model_service,
     )
-    train_predict.train_and_predict()
+    train_predict.train_and_predict(artifacts_path=args.artifacts_path)
