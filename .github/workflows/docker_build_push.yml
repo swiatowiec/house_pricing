@@ -1,0 +1,28 @@
+name: Docker Build and Push
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+jobs:
+  Docker for House Pricing:
+    runs-on: ubuntu-latest
+    on:
+      workflow_run:
+        workflows: ["Execute Tests"]
+        branches: [ master ]
+        types: 
+          - completed
+    steps: 
+      - uses: actions/checkout@v2
+      - name: login to DockerHub
+        env: 
+          DOCKER_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+        run:
+          docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+      - name: Build Docker Image
+        run: docker build . --file Dockerfile --tag $DOCKER_USERNAME/house-pricing-image
+      - name: Deploy Docker Image
+        run: |
+          docker push $DOCKER_USERNAME/house-pricing-image
