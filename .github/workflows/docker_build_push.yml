@@ -20,10 +20,6 @@ jobs:
       - name: Execute Tests
         run: |
           python model/tests.py
-  Docker_build_and_push:
-    runs-on: ubuntu-latest
-    steps: 
-      - uses: actions/checkout@v2
       - name: login to DockerHub
         env: 
           DOCKER_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
