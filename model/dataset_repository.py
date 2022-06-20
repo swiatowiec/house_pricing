@@ -12,8 +12,8 @@ class DatasetRepository:
         df = pd.concat([features, target], axis=1)
         return df, features, target
 
-    def save_metrics(self, rmse, r2, artifacts_path):
+    def save_metrics(self, rmse, r2, path):
         json_content = {'rmse': rmse, "r2": r2}
-        metrics_path =  os.path.join(artifacts_path, "metrics.json")
+        metrics_path =  os.path.join(path, "metrics.json")
         with open(metrics_path, 'w') as file:
             json.dump(json_content, file)

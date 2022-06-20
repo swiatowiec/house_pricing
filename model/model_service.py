@@ -9,9 +9,10 @@ import numpy as np
 
 class ModelService:
     def generate_plots(self, dataset, path):
+        os.mkdir(path)
         corr_matrix = dataset.corr().round(2)
         sns.heatmap(data=corr_matrix, annot=True)
-        plt.savefig(os.path.join('correlation_matrix.png'))
+        plt.savefig(os.path.join(path, 'correlation_matrix.png'))
 
         sns.set(rc={'figure.figsize':(10,10)})
         sns.distplot(dataset['MEDV'], bins=20)
