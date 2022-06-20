@@ -39,5 +39,13 @@ class ModelTests(unittest.TestCase):
         self.assertEqual(rmse_rounded, 5.2723)
         self.assertEqual(r2_rounded, 0.6210)
 
+    def test_if_metrics_are_saved(self):
+        PATH = os.path.join(tempfile.gettempdir(), str(uuid.uuid4()))
+        os.mkdir(PATH)
+        train_predict = self.setUp()
+        train_predict._dataset_repository.save_metrics(rmse=5.272, r2=0.620, path=PATH)
+        num_of_creates_files = len(os.listdir(PATH))
+        self.assertEqual(num_of_creates_files, 1)
+
     if __name__ == '__main__':
         unittest.main()
