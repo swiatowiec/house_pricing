@@ -9,7 +9,6 @@ import numpy as np
 
 class ModelService:
     def generate_plots(self, dataset, path):
-        #TODO add path as params
         corr_matrix = dataset.corr().round(2)
         sns.heatmap(data=corr_matrix, annot=True)
         plt.savefig(os.path.join('correlation_matrix.png'))
@@ -18,10 +17,9 @@ class ModelService:
         sns.distplot(dataset['MEDV'], bins=20)
         plt.savefig(os.path.join(path, 'prices_(MEDV).png'))
 
-    def train_predict(self, features, target):
+    def train_predict(self, features, target, test_size):
         selected_features = self._select_features(features=features)
-        #TODO test size as params
-        X_train, X_test, y_train, y_test = train_test_split(selected_features, target, test_size=0.2, random_state = 42)
+        X_train, X_test, y_train, y_test = train_test_split(selected_features, target, test_size=test_size, random_state = 42)
         reg = LinearRegression()
         reg.fit(X_train, y_train)
         pred = reg.predict(X_test)
