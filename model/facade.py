@@ -8,7 +8,6 @@ class PredictHousePrices:
         self._dataset_repository = dataset_repository
         self._model_service = model_service
         
-
     def train_and_predict(self):         
         dataset, features, target = self._dataset_repository.read_data()
         self._model_service.generate_plots(dataset=dataset)
