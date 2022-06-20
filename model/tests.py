@@ -47,5 +47,5 @@ class ModelTests(unittest.TestCase):
         num_of_creates_files = len(os.listdir(PATH))
         self.assertEqual(num_of_creates_files, 1)
 
-    if __name__ == '__main__':
-        unittest.main()
+if __name__ == '__main__':
+    unittest.main()
