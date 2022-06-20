@@ -5,7 +5,7 @@ import argparse
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--artifacts_path', type=str, default='model/artifacts')
+    parser.add_argument('--artifacts_path', type=str, default='artifacts')
     parser.add_argument('--test-size', type=float, default=0.2)
     args = parser.parse_args()
 
@@ -17,3 +17,4 @@ if __name__ == '__main__':
     train_predict.train_and_predict(artifacts_path=args.artifacts_path, 
                                     test_size=args.test_size,
                                     )
+    print("Success")

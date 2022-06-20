@@ -1,0 +1,37 @@
+name: House Pricing workflow
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+jobs:
+  Tests_and_docker_push:
+    runs-on: ubuntu-latest
+    steps: 
+      - uses: actions/checkout@v2
+      - name: Setup Python
+        uses: actions/setup-python@v3
+        with:
+          python-version: "3.9"
+      - name: Install deps
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r req.txt
+      - name: Execute Tests
+        run: |
+          python model/tests.py
+      - name: Login to DockerHub
+        env: 
+          DOCKER_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+        run:
+          docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+      - name: Build Docker Image
+        env: 
+          DOCKER_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
+        run: docker build . --file Dockerfile --tag $DOCKER_USERNAME/house-pricing-image
+      - name: Deploy Docker Image
+        env: 
+          DOCKER_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
+        run: |
+          docker push $DOCKER_USERNAME/house-pricing-image
