@@ -21,7 +21,11 @@ jobs:
         run:
           docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
       - name: Build Docker Image
+        env: 
+          DOCKER_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
         run: docker build . --file Dockerfile --tag $DOCKER_USERNAME/house-pricing-image
       - name: Deploy Docker Image
+        env: 
+          DOCKER_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
         run: |
           docker push $DOCKER_USERNAME/house-pricing-image
