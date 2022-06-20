@@ -1,5 +1,6 @@
 from sklearn.datasets import load_boston
 import pandas as pd
+import json
 
 class DatasetRepository:
     def read_data(self):
@@ -8,3 +9,9 @@ class DatasetRepository:
         target = pd.DataFrame(dataset.target, columns=['MEDV'])
         df = pd.concat([features, target], axis=1)
         return df, features, target
+
+    def save_metrics(self, rmse, r2):
+        json_content = {'rmse': rmse, "r2": r2}
+        metrics_path =  "metrics.json"
+        with open(metrics_path, 'w') as file:
+            json.dump(json_content, file)

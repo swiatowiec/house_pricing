@@ -13,3 +13,4 @@ class PredictHousePrices:
         dataset, features, target = self._dataset_repository.read_data()
         self._model_service.generate_plots(dataset=dataset)
         rmse, r2 = self._model_service.train_predict(features=features, target=target)
+        self._dataset_repository.save_metrics(rmse=rmse, r2=r2)
