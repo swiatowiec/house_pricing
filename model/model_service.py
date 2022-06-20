@@ -1,4 +1,5 @@
 from sklearn.model_selection import train_test_split
+from sklearn.metrics import mean_squared_error, r2_score
 from sklearn.linear_model import LinearRegression
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -24,8 +25,15 @@ class ModelService:
         reg = LinearRegression()
         reg.fit(X_train, y_train)
         pred = reg.predict(X_test)
+        rmse, r2 = self._calculate_metrics(y_test, pred)
+        return rmse, r2
 
     def _select_features(self, features):
         #feature selection based on corr matrix
         selected_features = pd.DataFrame(np.c_[features['RM'], features['INDUS'], features['NOX'], features['TAX'], features['PTRATIO'], features['LSTAT']])
-        return selected_features   
+        return selected_features
+
+    def _calculate_metrics(self, y_test, pred):
+        rmse = (np.sqrt(mean_squared_error(y_test, pred)))
+        r2 = r2_score(y_test, pred)
+        return rmse, r2
