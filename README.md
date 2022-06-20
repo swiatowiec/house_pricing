@@ -1,9 +1,10 @@
-# Docker container for training and calling a linear regression model based on the housing prices dataset to predict respective house prices.
+# House Pricing Project 
+Docker container for training and calling a linear regression model based on the housing prices dataset to predict respective house prices.
 
-## DATASET
-data source: https://scikit-learn.org/stable/modules/generated/sklearn.datasets.load_boston.html
+## Dataset
+Data source: https://scikit-learn.org/stable/modules/generated/sklearn.datasets.load_boston.html
 
-## USAGE
+## Usage
 ```
 usage: run_training_process.py [-h] [--artifacts_path ARTIFACTS_PATH] [--test-size TEST_SIZE]
 
@@ -13,7 +14,7 @@ optional arguments:
   --test-size TEST_SIZE
 ```
 
-## RUN LOCALLY
+## To run locally
 1. Build docker image:
 `docker build .`
 
