@@ -10,10 +10,8 @@ on:
   pull_request:
     branches: [ master ]
 jobs:
-  Docker for House Pricing:
+  Docker_build_and_push:
     runs-on: ubuntu-latest
-    on:
-      
     steps: 
       - uses: actions/checkout@v2
       - name: login to DockerHub
