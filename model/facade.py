@@ -11,4 +11,5 @@ class PredictHousePrices:
 
     def train_and_predict(self):         
         dataset, features, target = self._dataset_repository.read_data()
+        self._model_service.generate_plots(dataset=dataset)
         self._model_service.train_predict(features=features, target=target)
