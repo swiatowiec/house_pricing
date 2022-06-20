@@ -1,9 +1,9 @@
 name: House Pricing workflow
 on:
   push:
-    branches: [ master ]
+    branches: [ main ]
   pull_request:
-    branches: [ master ]
+    branches: [ main ]
 jobs:
   Tests_and_docker_push:
     runs-on: ubuntu-latest
