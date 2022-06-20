@@ -1,5 +1,10 @@
 name: Docker Build and Push
 on:
+  workflow_run:
+    workflows: ["Execute Tests"]
+    branches: [ master ]
+    types: 
+      - completed
   push:
     branches: [ master, CI_pipeline ]
   pull_request:
@@ -8,11 +13,7 @@ jobs:
   Docker for House Pricing:
     runs-on: ubuntu-latest
     on:
-      workflow_run:
-        workflows: ["Execute Tests"]
-        branches: [ master ]
-        types: 
-          - completed
+      
     steps: 
       - uses: actions/checkout@v2
       - name: login to DockerHub
